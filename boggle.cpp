@@ -95,5 +95,32 @@ bool boggleHelper(const std::set<std::string>& dict, const std::set<std::string>
 								   std::string word, std::set<std::string>& result, unsigned int r, unsigned int c, int dr, int dc)
 {
 //add your solution here!
+	if(r >= board.size() || c >= board[r].size())
+	{
+		return false;
+	}
+	word+=board[r][c];
+	if(prefix.find(word) == prefix.end())
+	{
+		return false;
+	}
+	//bool inserted = false;
+	//if(dict.find(word) != dict.end())
+	//{
+	//	result.insert(word);
+		//inserted = true;
+	//}
+	std::string longest = "";
+	bool found = boggleHelper(dict, prefix, board, word, result, r+dr, c+dc, dr, dc);
+	//boggleHelper(dict, prefix, board, word, result, r+dr, c+dc, dr, dc);
+	//if(dict.find(word) != dict.end() && word.length() >= longest.length())
+	if(!found && dict.find(word)!= dict.end())
+	{
+		result.insert(word);
+		return true;
+	}
+	//return found || (dict.find(word) != dict.end());
+	//return found || inserted;
+	return found;
 
 }
